@@ -5,9 +5,12 @@ working_directory <- getwd()
 file <- "household_power_consumption.txt"  
 path <- paste(working_directory, file, sep = "/") 
 
+# Download the file and extract it if does not exist in the working directory
 if (!file.exists(path)) {
-  stop("The file is not available")
-} else {
+  url <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+  download.file(url = url, destfile = "./data_household_power_consumption.zip", method = "curl")
+  unzip(zipfile = "./data_household_power_consumption.zip")
+} 
   # Read from local file
   population <- read.csv2(path, header = TRUE, sep = ";", na.strings = "?",
                           colClasses=c("character","character","character",                        
